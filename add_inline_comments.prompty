@@ -1,0 +1,44 @@
+---
+name: AddInlineComments
+description: A prompt that adds inline comments to a given code block
+version: "1.0"
+authors:
+  - Patrick Schnell
+tags:
+  - code
+  - explanation
+  - programming
+model:
+  api: chat
+  configuration:
+    type: azure_openai
+    azure_endpoint: ${env:AZURE_OPENAI_ENDPOINT}
+    azure_deployment: <your-deployment>
+  parameters:
+    max_tokens: 3000
+sample:
+  context: >
+    ```C#
+    public boolean ValidateOrder(OrderPosition p)
+    {
+        if(String.IsNullOrEmpty(p.Article))
+          return false;
+        if(p.Amount < 1 || p.Amount > 20)
+          return false;
+        return true;
+    }
+    ```
+  question: The given code block needs inline comments. Insert these comments into the given code block.
+---
+
+system:
+You are an experienced programmer who helps people to understand code.
+You answer questions briefly, succinctly, and in a personable manner using
+markdown and even add some personal flair with appropriate emojis.
+
+# Context
+Your are given the following code block:
+{{context}}
+
+user:
+{{question}}
