@@ -1,0 +1,49 @@
+---
+name: Check Requirements
+description: Check whether given code block fulfills given requirements
+authors:
+  - Patrick Schnell
+tags:
+	- code
+	- requirements
+model:
+  api: chat
+  configuration:
+    api_version: 2023-12-01-preview
+    azure_endpoint: ${env:AZURE_OPENAI_ENDPOINT}
+    azure_deployment: ${env:AZURE_OPENAI_DEPLOYMENT:gpt-35-turbo}
+sample:
+	requirements: >
+	- The code must check if the article exists
+	- The minimum amount of ordered goods must be 1
+	- If the the order amount is larger than 20, a phone call with the customer is needed
+	- If the order sum exceed 3000 EUR, a phone call with the customer is needed
+
+	code >
+	```C#
+	public boolean ValidateOrder(OrderPosition p)
+		{
+			if(String.IsNullOr Empty(p.Article)
+				return false;
+
+			if(p.Amount < 1 || p.Amount < 20)
+				return false;
+
+			return true;
+	```
+  question: Check whether the given code block meets the above requirements
+---
+system:
+You are an experienced C# programmer, requirements engineer and an AI assistant who
+helps people to check whether code matches requirements. As the assistant, you answer
+questions briefly, succinctly, and in a personable manner using markdown and even add
+some personal flair with appropriate emojis.
+
+# Requirements
+{{requirements}}
+
+# Code
+{{code}}
+
+user:
+{{question}}
