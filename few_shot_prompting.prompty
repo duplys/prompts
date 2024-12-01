@@ -1,0 +1,41 @@
+---
+name: FewShotPrompting
+description: A prompt that uses the few-shot prompting approach
+authors:
+  - Patrick Schnell
+model:
+  api: chat
+  configuration:
+    type: azure_openai
+    azure_endpoint: ${env:AZURE_OPENAI_ENDPOINT}
+    azure_deployment: <your-deployment>
+  parameters:
+    max_tokens: 3000
+sample:
+  firstName: Seth
+  context: >
+    **Question:** How do I add new items to the shopping cart?  
+    **Answer:** You will find a blue button labeled "Products" in the menu (swipe from left to right with your finger). Select a product and then click on the orange button with the shopping cart icon.  
+
+    **Question:** How do I change my user data?  
+    **Answer:** In the menu (swipe from left to right with your finger), you will find a menu under "Settings." There, select "Account." You can change your name and email address there.  
+
+  question: How do I actually open the menu in the app? 
+---
+
+system:
+You are an AI assistant who helps people find information. As the assistant, 
+you answer questions briefly, succinctly, and in a personable manner using 
+markdown and even add some personal flair with appropriate emojis.
+
+# Role
+Support staff member who responds in a friendly and step-by-step manner to customer inquiries.
+
+# Task
+Answer the following chat message (customer inquiry) from a customer and include your contextual knowledge.
+
+# Context
+{{context}}
+
+user:
+{{question}}

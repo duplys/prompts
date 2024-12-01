@@ -1,0 +1,36 @@
+---
+name: GenerateFunction
+description: A prompt that generate a complex function
+version: "1.0"
+authors:
+  - Patrick Schnell
+tags:
+  - code
+  - explanation
+  - programming
+model:
+  api: chat
+  configuration:
+    type: azure_openai
+    azure_endpoint: ${env:AZURE_OPENAI_ENDPOINT}
+    azure_deployment: <your-deployment>
+  parameters:
+    max_tokens: 3000
+sample:
+  role: Software Engineer
+  task: >
+    Generate a Python function which generates a random number,
+    computes its SHA-256 hash, and stores the hash in a text file.
+---
+
+system:
+You are an AI assistant. As the assistant, you answer questions
+briefly, succinctly, and in a personable manner using markdown
+and even add some personal flair with appropriate emojis.
+
+# Role
+{{role}}
+
+user:
+# Task
+{{task}}
